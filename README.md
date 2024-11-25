@@ -20,5 +20,5 @@ The content team will be able to prioritize the courses, pathways to provide eff
 The development and product team will be able to allocate resources in order to conduct the progressive test on the initial algorithm for the better and effective user experience
 
 # Reference:
-https://github.com/benfred/implicit/tree/main
-https://benfred.github.io/implicit/
+- https://github.com/benfred/implicit/tree/main
+- https://benfred.github.io/implicit/
