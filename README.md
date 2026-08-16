@@ -57,17 +57,13 @@ Personalized topics and similar-content recommendations
 - The same model can support single-user, batch and similar-content recommendation use cases.
 - Recommendation outputs can be filtered to exclude content a learner has already viewed.
 
-## Limitations and next steps
+## Demonstrator scope
 
-This was a fellowship prototype, not a production deployment. The notebook demonstrated recommendation generation but did not include a formal offline evaluation or an online experiment.
+This prototype demonstrates an end-to-end recommendation workflow using implicit content-view signals. It generates personalized recommendations for individual learners and learner batches, identifies similar content, and supports filtering previously viewed items.
 
-The next validation steps would be:
+## Path to production
 
-- Define relevance and learning-success metrics such as precision at K, completion and competency improvement.
-- Compare ALS recommendations with popularity and content-based baselines.
-- Test cold-start strategies for new learners and new content.
-- Add recency, explicit feedback and learning-goal signals.
-- Run controlled experiments before integrating recommendations into a live chatbot experience.
+Production development would extend the demonstrator with ranking benchmarks, offline relevance metrics, cold-start strategies and controlled experiments measuring learning engagement, completion and competency outcomes.
 
 ## Technology
 
@@ -78,10 +74,6 @@ The next validation steps would be:
 - Alternating Least Squares
 - BM25 weighting
 - Google Colab
-
-## Repository note
-
-This repository documents the product problem, prototype method and findings. The project deck is intentionally not included, and organization-specific data and notebook paths remain private.
 
 ## References
 
