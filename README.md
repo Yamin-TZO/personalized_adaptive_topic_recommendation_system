@@ -8,6 +8,11 @@ Learners do not always state what they want to study, and their interests can ch
 
 I led the implementation as Product Owner during the ABW Data Analytics Fellowship. The project was recognized as one of the fellowship's top 8 projects in 2023.
 
+## Notebooks
+
+- [Topic Recommendation Based on Content Views](./Updated_Topic%20Recommendation%20based%20on%20content%20view.ipynb) demonstrates the end-to-end implicit-feedback pipeline, including interaction weighting, ALS model training, personalized recommendations, similar-content discovery and batch recommendations.
+- [User Trend and Persona Exploration](./user_trend.ipynb) explores learner-interest data, standardization and clustering to identify user personas and inform recommendation features.
+
 ## Product goal
 
 The prototype was designed to help:
