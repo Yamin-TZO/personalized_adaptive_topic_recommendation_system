@@ -1,24 +1,90 @@
-# Background Information
-As one of the pioneers in Southeast Asia of implementing the chatbot-based learning management system, learners' learning experiences are enhanced by personalized feedback, which resonates with their distinct skill sets, individual learning strategies, and diverse goals. Besides, owing to the limited internet access in Myanmar, learners require a flexible learning pace that allows them to study at their convenience.
+# Adaptive Topic Recommendation System
 
-This led to one of our solutions to ensure that our chatbot not only delivers personalized content based on learner’s persona, interest and behavior but also evolves with the learner, adapting to their changing needs and abilities.
+An implicit-feedback recommendation prototype designed to personalize learning topics for people using a chatbot-based learning platform in low-connectivity environments.
 
-As an end-user (learner) in the chatbot, they will be able to get the personalized experience in learning in order to achieve the respective goal effectively within the short period of time.
+## Project overview
 
-# Introduction
-This project is contributing a critical role of achieving the above mentioned experience through chatbot.
+Learners do not always state what they want to study, and their interests can change as they interact with new content. This project explored how content-view behavior could be used to generate relevant topic recommendations without requiring explicit ratings.
 
-## Goal:
-The goal of the project is to give the topic recommendation to learners based on user interest on topics.
+I led the implementation as Product Owner during the ABW Data Analytics Fellowship. The project was recognized as one of the fellowship's top 8 projects in 2023.
 
-## Model Reference:
-This project is based on implicit library which focuses on implicit feedback recommenders systems - where we are given positive examples of what the user has interacted with, but aren't given the corresponding negative examples of what users aren't interested in. I will use the AlternatingLeastSquares model that's based off the paper Collaborative Filtering for Implicit Feedback Datasets. This model aims to learn a binary target of whether each user has interacted with each item - but weights each binary interaction by a confidence value of how confident we are in this user/item interaction. The implementation in implicit uses the values of a sparse matrix to represent the confidences, with the non zero entries representing whether or not the user has interacted with the item.
+## Product goal
 
-# Stakeholders and their use cases
-+77,000 learners for their effective and engaging learning experience for achieving respective goal(s) through chatbot
-The content team will be able to prioritize the courses, pathways to provide effective learning resources to learners.
-The development and product team will be able to allocate resources in order to conduct the progressive test on the initial algorithm for the better and effective user experience
+The prototype was designed to help:
 
-# Reference:
-- https://github.com/benfred/implicit/tree/main
-- https://benfred.github.io/implicit/
+- Learners discover relevant topics based on their observed interests.
+- Content teams identify useful learning pathways and prioritize resources.
+- Product and development teams test personalized learning experiences before investing in production integration.
+
+## Data and approach
+
+The working notebook used a snapshot of:
+
+- 2,018 content-view events
+- 388 learners
+- 179 content items
+
+The prototype converted learner-content interactions into a sparse matrix and treated repeated views as implicit positive feedback. It then:
+
+1. Aggregated view counts for each learner-content pair.
+2. Applied BM25 weighting to reduce the influence of unusually frequent viewers and highly popular content.
+3. Trained a confidence-weighted Alternating Least Squares collaborative-filtering model.
+4. Generated top-N recommendations for individual learners and batches of learners.
+5. Explored similar-content recommendations using learned item relationships.
+
+The model used 64 latent factors, 0.05 regularization and an alpha value of 2.0 in the tested notebook.
+
+## Prototype workflow
+
+```text
+Content-view events
+        ↓
+Learner and content indexing
+        ↓
+Sparse interaction matrix
+        ↓
+BM25 confidence weighting
+        ↓
+Implicit-feedback ALS model
+        ↓
+Personalized topics and similar-content recommendations
+```
+
+## What the prototype demonstrated
+
+- Behavioral data can provide a useful personalization signal when explicit ratings are unavailable.
+- Confidence weighting can balance repeated engagement against popularity bias.
+- The same model can support single-user, batch and similar-content recommendation use cases.
+- Recommendation outputs can be filtered to exclude content a learner has already viewed.
+
+## Limitations and next steps
+
+This was a fellowship prototype, not a production deployment. The notebook demonstrated recommendation generation but did not include a formal offline evaluation or an online experiment.
+
+The next validation steps would be:
+
+- Define relevance and learning-success metrics such as precision at K, completion and competency improvement.
+- Compare ALS recommendations with popularity and content-based baselines.
+- Test cold-start strategies for new learners and new content.
+- Add recency, explicit feedback and learning-goal signals.
+- Run controlled experiments before integrating recommendations into a live chatbot experience.
+
+## Technology
+
+- Python
+- pandas and NumPy
+- SciPy sparse matrices
+- implicit
+- Alternating Least Squares
+- BM25 weighting
+- Google Colab
+
+## Repository note
+
+This repository documents the product problem, prototype method and findings. The project deck is intentionally not included, and organization-specific data and notebook paths remain private.
+
+## References
+
+- [implicit documentation](https://benfred.github.io/implicit/)
+- [implicit GitHub repository](https://github.com/benfred/implicit)
+- [Collaborative Filtering for Implicit Feedback Datasets](http://yifanhu.net/PUB/cf.pdf)
